@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:todo/home.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:todo/firebase_options.dart';
+import 'package:todo/screens/home.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -16,3 +22,25 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
+/*
+void _resetForm() {
+    setState(() {
+      _title = '';
+      _description = '';
+      _selectedPriority = Priority.low;
+      _selectedDateTime = null;
+      _submitButtonText = 'Add';
+      _currentTodoRef = null;
+    });
+
+    // Delay clearing text controllers after current build cycle
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _titleController.clear();  // Clear the text field for title
+      _descriptionController.clear();  // Clear the text field for description
+    });
+
+    _formGlobalKey.currentState?.reset();  // Reset the form state
+  }
+ */
